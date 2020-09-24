@@ -37,8 +37,8 @@ public class MainP1 {
 
 	    ArrayList<Coordinate> v2 = new ArrayList<Coordinate>();
 	    for (int i=0; i<8; i++) {
-	                v2.add(new Coordinate(i, i));
-	                System.out.println(v2.get(i));
+	        v2.add(new Coordinate(i, i));
+	        System.out.println(v2.get(i));
 	    }
 	}
 }
