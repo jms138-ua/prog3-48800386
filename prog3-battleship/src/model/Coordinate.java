@@ -41,7 +41,7 @@ public class Coordinate {
 			concatenation.append(components[i]);
 			
 			if (i < components.length-1) {
-				concatenation.append(",");
+				concatenation.append(", ");
 			}
 		}
 		concatenation.append(")");
