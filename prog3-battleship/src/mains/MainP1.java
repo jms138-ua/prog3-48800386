@@ -40,5 +40,11 @@ public class MainP1 {
 	        v2.add(new Coordinate(i, i));
 	        System.out.println(v2.get(i));
 	    }
+	    
+	    Coordinate v3 = c2.copy();
+	    System.out.println(v3);
+	    
+	    System.out.println(v3.adjancentCoordinates());
+	    
 	}
 }
