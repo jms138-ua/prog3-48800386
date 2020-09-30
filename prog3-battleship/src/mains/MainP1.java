@@ -1,50 +1,64 @@
 package mains;
 
-import java.util.ArrayList;
-
+import model.Board;
 import model.Coordinate;
+import model.Orientation;
+import model.Ship;
 
 public class MainP1 {
 
 	public static void main(String[] args) {
+				
+		Board bplayer1 = new Board(10);
+		Ship s1p1 = new Ship(Orientation.EAST,'P',"Dijkstra");
+		Ship s2p1 = new Ship(Orientation.NORTH,'s',"Boole");
+		Ship s3p1 = new Ship(Orientation.EAST,'d',"Knuth");
+		bplayer1.addShip(s1p1,new Coordinate(0,0));
+		bplayer1.addShip(s2p1,new Coordinate(5,-1));
+		bplayer1.addShip(s3p1,new Coordinate(2,3));
 		
-        Coordinate c1 = new Coordinate(0,0);
-	    Coordinate c2 = new Coordinate(10,10);
-	    Coordinate c3 = new Coordinate(4,3);
-	    Coordinate c4 = new Coordinate(5,15);
-	    Coordinate c5 = new Coordinate(c4);
-	    Coordinate c6 = new Coordinate(2,5);
+		System.out.println("(1) Player 1:" + bplayer1);
+		System.out.println(bplayer1.show(true));
+		
+		Board bplayer2 = new Board(10);
+		Ship s1p2 = new Ship(Orientation.SOUTH,'X',"X-wing");
+		Ship s2p2 = new Ship(Orientation.WEST,'M',"Millenium Falcon");
+		Ship s3p2 = new Ship(Orientation.NORTH,'C',"Corellian cruiser");
+		bplayer2.addShip(s1p2,new Coordinate(0,0));
+		bplayer2.addShip(s2p2,new Coordinate(5,5));
+		bplayer2.addShip(s3p2,new Coordinate(1,1));
 
-	    System.out.println(c1);
-	    System.out.println(c2);
-	    System.out.println(c3);
-	    System.out.println(c4);
-	    System.out.println(c5);
-	    System.out.println(c6);
+		System.out.println("(1) Player 2:"+bplayer2);
+		System.out.println(bplayer2.show(true));
+		
+		bplayer2.addShip(s3p2,new Coordinate(0,2));
+		System.out.println("(2) Player 2:"+bplayer2);
+		System.out.println(bplayer2.show(true));
+		
+		bplayer2.addShip(s3p2,new Coordinate(9,0));
+		System.out.println("(3) Player 2:"+bplayer2);
+		System.out.println(bplayer2.show(true));
+		
+		bplayer2.hit(new Coordinate(0,0));
+		bplayer1.hit(new Coordinate(1,1));
+		bplayer2.hit(new Coordinate(2,2));
+		bplayer2.hit(new Coordinate(3,3));
+		bplayer1.hit(new Coordinate(5,5));
+		bplayer2.hit(new Coordinate(2,3));
+		bplayer2.hit(new Coordinate(2,1));
 
-
-        Coordinate sumada = c3.add(c6);
-	    System.out.println(c3+"+"+c6+"="+sumada);
-
-        Coordinate[] v = new Coordinate[5];
-	    for (int i=0; i<5; i++) {
-	        v[i]= new Coordinate(i,4-i);
-	    }
-	    
-	    for (int i=0; i<5; i++) {
-	        System.out.println(v[i].get(0)+","+v[i].get(1));
-	    }
-
-	    ArrayList<Coordinate> v2 = new ArrayList<Coordinate>();
-	    for (int i=0; i<8; i++) {
-	        v2.add(new Coordinate(i, i));
-	        System.out.println(v2.get(i));
-	    }
-	    
-	    Coordinate v3 = c2.copy();
-	    System.out.println(v3);
-	    
-	    System.out.println(v3.adjancentCoordinates());
-	    
+		System.out.println("-------------------");
+		System.out.println("Player 1:" + bplayer1);
+		System.out.println(bplayer1.show(true));
+		System.out.println(bplayer1.show(false));
+		
+		System.out.println("-------------------");
+		System.out.println("Player 2:" + bplayer2);
+		System.out.println(bplayer2.show(true));
+		System.out.println(bplayer2.show(false));
+		
+		System.out.println("-------------------");
+		System.out.println(s3p1);
+		System.out.println(s1p2);
 	}
 }

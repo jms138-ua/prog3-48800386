@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+
 /**
  * Clase que representa las coordenadas del juego,
  * que son representadas en un array.
@@ -31,7 +32,35 @@ public class Coordinate {
 			components[i] = c.components[i];
 		}
 	}
-	//___________________________________________________________________________________
+	//_______________________________________________________________________________________________
+	
+	/** Getter del array especificando coordenada (x o y) */
+	public int get(int component) {
+		if (component>=0 && component<components.length) {
+			return components[component];
+		}
+		else {
+			System.err.println("Error in Coordinate.get, component" + component + " is out of range");
+		}
+		return -1;
+	}
+	
+	/** Setter del array especificando coordenada (x o y) con su nuevo valor */
+	protected void set(int component, int value) {
+		if (component>=0 && component<components.length) {
+			components[component] = value;
+		}
+		else {
+			System.err.println("Error in Coordinate.set, component" + component + " is out of range");
+		}
+	}
+	
+	/** Nuevo objeto Coordinate a partir de la copia de este*/
+	public Coordinate copy() {
+		return new Coordinate(this);
+	}
+	
+	//_______________________________________________________________________________________________
 	
 	/** Representar el objeto como un string de la forma "(x,y)" */
 	@Override
@@ -74,12 +103,6 @@ public class Coordinate {
 		return true;
 	}
 	
-	/** Nuevo objeto Coordinate a partir de la copia de este*/
-	public Coordinate copy() {
-		return new Coordinate(this);
-	}
-	
-	
 	/**
 	 * Nueva coordenada a partir de la suma con otro objeto Coordinate
 	 * @param Objeto Coordinate para sumar
@@ -108,27 +131,6 @@ public class Coordinate {
 		return new_c;
 	}
 	
-	/** Getter del array especificando coordenada (x o y) */
-	public int get(int component) {
-		if (component>=0 && component<components.length) {
-			return components[component];
-		}
-		else {
-			System.err.println("Error in Coordinate.get, component" + component + " is out of range");
-		}
-		return -1;
-	}
-	
-	/** Setter del array especificando coordenada (x o y) con su nuevo valor */
-	protected void set(int component, int value) {
-		if (component>=0 && component<components.length) {
-			components[component] = value;
-		}
-		else {
-			System.err.println("Error in Coordinate.set, component" + component + " is out of range");
-		}
-	}
-	
 	/**
 	 * Set de coordenadas adyacentes a la actual
 	 * @return Un set de objetos Coordinate
@@ -148,5 +150,4 @@ public class Coordinate {
 		}
 		return components_adj_all;
 	}
-	
 }
