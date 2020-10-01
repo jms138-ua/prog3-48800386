@@ -115,9 +115,8 @@ public class Ship {
 		}
 		
 		sketch.insert(BOUNDING_SQUARE_SIZE+3, "|");
-		for (int i=BOUNDING_SQUARE_SIZE*2+4; i<sketch.length(); i+=BOUNDING_SQUARE_SIZE+1) {
+		for (int i=BOUNDING_SQUARE_SIZE*2+4; i<sketch.length(); i+=BOUNDING_SQUARE_SIZE+3) {
 			sketch.insert(i, "|\n|");
-			i+=2;
 		}
 		sketch.append("|\n ----- ");
 		
@@ -126,18 +125,18 @@ public class Ship {
 	
 	
 	public Set<Coordinate> getAbsolutePositions(Coordinate position) {
-		Set<Coordinate> components_ship = new HashSet<Coordinate>();
+		Set<Coordinate> coords_ship = new HashSet<Coordinate>();
 		
 		int i = 0;
 		for (int cell : shape[orientation.ordinal()]) {
 			if (cell==CRAFT_VALUE || cell==HIT_VALUE) {
 				int x_absolute = position.get(0) + (i % BOUNDING_SQUARE_SIZE);
 				int y_absolute = position.get(1) + (i / BOUNDING_SQUARE_SIZE);
-				components_ship.add(new Coordinate(x_absolute, y_absolute));
+				coords_ship.add(new Coordinate(x_absolute, y_absolute));
 			}
 			i++;
 		}
-		return components_ship;
+		return coords_ship;
 	}
 	
 	
@@ -147,8 +146,8 @@ public class Ship {
 	
 	
 	public boolean hit(Coordinate c) {
-		if (shape[orientation.ordinal()][getShapeIndex(c)] == CRAFT_VALUE) {
-			shape[orientation.ordinal()][getShapeIndex(c)] = HIT_VALUE;
+		if (shape[orientation.ordinal()][getShapeIndex(c.subtract(position))] == CRAFT_VALUE) {
+			shape[orientation.ordinal()][getShapeIndex(c.subtract(position))] = HIT_VALUE;
 			return true;
 		}
 		else { return false;}

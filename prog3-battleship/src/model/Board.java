@@ -1,8 +1,10 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -58,24 +60,23 @@ public class Board {
 	
 	
 	public boolean areAllCraftsDestroyed() {
-		return 0 == numCrafts-destroyedCrafts;
+		return numCrafts-destroyedCrafts == 0;
 	}
 	
 	
 	public Set<Coordinate> getNeighBorhood(Ship ship, Coordinate position) {
-		Set<Coordinate> v = new HashSet<Coordinate>();
-		Set<Coordinate> v2 = new HashSet<Coordinate>();
-		for (Coordinate coor : ship.getAbsolutePositions(position)) {
-			v.addAll(coor.adjancentCoordinates());
-		}
-		for (Coordinate u : v) {
-			if (!checkCoordinate(u)) {
-				v2.add(u);
+		Set<Coordinate> components_neighborhood = new HashSet<Coordinate>();
+		
+		for (Coordinate coord_ship : ship.getAbsolutePositions(position)) {
+			for (Coordinate coord_adjancent : coord_ship.adjancentCoordinates()) {
+				if (checkCoordinate(coord_adjancent)) {
+					components_neighborhood.add(coord_adjancent);
+				}
 			}
 		}
-		v.removeAll(ship.getAbsolutePositions(position));
-		v.removeAll(v2);
-		return v;
+		components_neighborhood.removeAll(ship.getAbsolutePositions(position));
+		
+		return components_neighborhood;
 	}
 	
 	public Set<Coordinate> getNeighBorhood(Ship ship) {
@@ -96,26 +97,27 @@ public class Board {
 		if (unveil) {
 			for (int i=0; i<size; i++) {
 				for (int j=0; j<size; j++) {
-					Coordinate coor = new Coordinate(j,i);
+					Coordinate cell = new Coordinate(j,i);
 					
-					if (board.containsKey(coor)) {
-						if (board.get(coor).isHit(coor)) { 	sketch.append(HIT_SYMBOL);}
-						else { 								sketch.append(board.get(coor).getSymbol());}
+					if (board.containsKey(cell)) {
+						if (board.get(cell).isHit(cell)) { 	sketch.append(HIT_SYMBOL);}
+						else { 								sketch.append(board.get(cell).getSymbol());}
 					}
 					else { sketch.append(WATER_SYMBOL);}
 				}
 				sketch.append("\n");
 			}
 		}
+		
 		else {
 			for (int i=0; i<size; i++) {
 				for (int j=0; j<size; j++) {
-					Coordinate coor = new Coordinate(j,i);
+					Coordinate cell = new Coordinate(j,i);
 					
-					if (seen.contains(coor)) {
-						if (board.get(coor).isShotDown()) { 	sketch.append(board.get(coor).getSymbol());}
-						else if (board.get(coor).isHit(coor)) { sketch.append(HIT_SYMBOL);}
-						else { 									sketch.append(WATER_SYMBOL);}
+					if (seen.contains(cell)) {
+						if (!board.containsKey(cell)) {				sketch.append(WATER_SYMBOL);}
+						else if (board.get(cell).isShotDown()) { 	sketch.append(board.get(cell).getSymbol());}
+						else { 										sketch.append(HIT_SYMBOL);}
 					}
 					else { sketch.append(NOTSEEN_SYMBOL);}
 				}
@@ -128,23 +130,28 @@ public class Board {
 	
 	
 	public boolean addShip(Ship ship, Coordinate position) {
-		if (!Collections.disjoint(board.keySet(), ship.getAbsolutePositions(position))) {
-			System.err.println("Error in Board.addShip, position " + position + " is already occupied");
+		List<Coordinate> coords_cpy1 = new ArrayList<Coordinate>(board.keySet());
+		List<Coordinate> coords_cpy2 = new ArrayList<Coordinate>(board.keySet());
+		
+		if (coords_cpy2.removeAll(ship.getAbsolutePositions(position))) {
+			coords_cpy1.removeAll(coords_cpy2);
+			System.err.println("Error in Board.addShip, position " + coords_cpy1.get(0) + " is already occupied");
 			return false;
 		}
-		else if (!Collections.disjoint(board.keySet(), getNeighBorhood(ship, position))) {
-			System.err.println("Error in Board.addShip, position " + position + " is next to another ship");
+		else if (coords_cpy2.removeAll(getNeighBorhood(ship, position))) {
+			coords_cpy1.removeAll(coords_cpy2);
+			System.err.println("Error in Board.addShip, position " + coords_cpy1.get(0) + " is next to another ship");
 			return false;
 		}
 		else {
-			for (Coordinate position_craft : ship.getAbsolutePositions(position)) {
-				if (!checkCoordinate(position_craft)) {
-					System.err.println("Error in Board.addShip, position " + position + " is out of the board");
+			for (Coordinate coord_ship : ship.getAbsolutePositions(position)) {
+				if (!checkCoordinate(coord_ship)) {
+					System.err.println("Error in Board.addShip, position " + coord_ship + " is out of the board");
 					return false;
 				}
 				else {
 					ship.setPosition(position);
-					board.put(position_craft, ship);
+					board.put(coord_ship, ship);
 				}
 			}
 			numCrafts++;
@@ -159,11 +166,12 @@ public class Board {
 			return CellStatus.WATER;
 		}
 		else if (!board.keySet().contains(c)) {
-			System.err.println("Error in Board.hit, position " + c + " is not occupied yet");
+			seen.add(c);
 			return CellStatus.WATER;
 		}
 		else {
 			board.get(c).hit(c);
+			
 			if (board.get(c).isShotDown()) {
 				seen.addAll(getNeighBorhood(board.get(c), c));
 				destroyedCrafts++;
@@ -175,5 +183,4 @@ public class Board {
 			}
 		}
 	}
-	
 }

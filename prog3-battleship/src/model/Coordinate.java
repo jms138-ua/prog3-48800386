@@ -139,7 +139,7 @@ public class Coordinate {
 		Set<Coordinate> components_adj_all = new HashSet<Coordinate>();
 		
 		for (int i=components[0]-1; i<=components[0]+1; i++) {
-			for (int j=components[0]-1; j<=components[0]+1; j++) {
+			for (int j=components[1]-1; j<=components[1]+1; j++) {
 				Coordinate components_adj = new Coordinate(i,j);
 				
 				if (!components_adj.equals(this)) {
