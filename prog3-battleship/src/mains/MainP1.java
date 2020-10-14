@@ -17,6 +17,7 @@ public class MainP1 {
 		bplayer1.addShip(s2p1,new Coordinate(5,-1));
 		bplayer1.addShip(s3p1,new Coordinate(2,3));
 		
+		
 		System.out.println("(1) Player 1:" + bplayer1);
 		System.out.println(bplayer1.show(true));
 		
