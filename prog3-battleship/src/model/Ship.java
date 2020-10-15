@@ -117,7 +117,7 @@ public class Ship {
 	 * @return -> indice del array
 	 */
 	public int getShapeIndex(Coordinate coord) {
-		return coord.get(0)*BOUNDING_SQUARE_SIZE+coord.get(1);
+		return coord.get(1)*BOUNDING_SQUARE_SIZE+coord.get(0);
 	}
 	
 	/** Check si esa coordenada del barco fue impactada
