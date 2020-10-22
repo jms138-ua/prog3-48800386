@@ -94,7 +94,7 @@ public class Ship {
 	 * @param position -> posicion absoluta que representa al barco 
 	 */
 	public void setPosition(Coordinate position) {
-		this.position = position;
+		this.position = new Coordinate(position);
 	}
 	
 	/** Getter de la orientacion
@@ -125,7 +125,7 @@ public class Ship {
 	 * @return -> true si fue impactada, false en caso contrario
 	 */
 	public boolean isHit(Coordinate coord) {
-		return shape[orientation.ordinal()][getShapeIndex(coord.subtract(position))] == HIT_VALUE;
+		return (position == null)? false : shape[orientation.ordinal()][getShapeIndex(coord.subtract(position))] == HIT_VALUE;
 	}
 	
 	/** Check si el barco esta destruido completamente

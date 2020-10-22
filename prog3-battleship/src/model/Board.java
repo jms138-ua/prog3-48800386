@@ -104,7 +104,7 @@ public class Board {
 		Set<Coordinate> coords_neig = new HashSet<Coordinate>();
 		
 		for (Coordinate coord_ship : ship.getAbsolutePositions(position)) {
-			for (Coordinate coord_adj : coord_ship.adjancentCoordinates()) {
+			for (Coordinate coord_adj : coord_ship.adjacentCoordinates()) {
 				if (checkCoordinate(coord_adj)) {
 					coords_neig.add(coord_adj);
 				}
@@ -220,12 +220,12 @@ public class Board {
 			return CellStatus.WATER;
 		}
 		else if (!board.keySet().contains(coord)) {
-			seen.add(coord);
+			seen.add(new Coordinate(coord));
 			return CellStatus.WATER;
 		}
 		else {
 			board.get(coord).hit(coord);
-			seen.add(coord);
+			seen.add(new Coordinate(coord));
 			
 			if (board.get(coord).isShotDown()) {
 				seen.addAll(getNeighborhood(board.get(coord)));

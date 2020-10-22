@@ -145,7 +145,7 @@ public class Coordinate {
 	/** Set de coordenadas adyacentes a la actual
 	 * @return -> set de coordenadas adyacentes
 	 */
-	public Set<Coordinate> adjancentCoordinates() {
+	public Set<Coordinate> adjacentCoordinates() {
 		Set<Coordinate> coords_adj = new HashSet<Coordinate>();
 		
 		for (int i=components[0]-1; i<=components[0]+1; i++) {
