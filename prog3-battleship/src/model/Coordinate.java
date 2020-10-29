@@ -65,7 +65,7 @@ public abstract class Coordinate {
 	
 	public Coordinate add(Coordinate coord) {
 		Objects.requireNonNull(coord);
-		Coordinate new_coord = coord.copy();
+		Coordinate new_coord = this.copy();
 		
 		for (int i=0; i<components.length; i++) {
 			try { new_coord.set(i, new_coord.get(i) + coord.get(i));}
@@ -77,7 +77,7 @@ public abstract class Coordinate {
 	
 	public Coordinate subtract(Coordinate coord) {
 		Objects.requireNonNull(coord);
-		Coordinate new_coord = coord.copy();
+		Coordinate new_coord = this.copy();
 		
 		for (int i=0; i<components.length; i++) {
 			try { new_coord.set(i, new_coord.get(i) - coord.get(i));}

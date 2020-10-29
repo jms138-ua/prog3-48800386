@@ -13,6 +13,6 @@ public class InvalidCoordinateException extends BattleshipException {
 	
 	@Override
 	public String getMessage() {
-		return super.getMessage();
+		return super.getMessage() + "; it is not valid";
 	}
 }

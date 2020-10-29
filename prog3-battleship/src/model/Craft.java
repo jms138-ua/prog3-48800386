@@ -113,8 +113,8 @@ public abstract class Craft {
 		int i = 0;
 		for (int cell : shape[orientation.ordinal()]) {
 			if (cell==CRAFT_VALUE || cell==HIT_VALUE) {
-				Coordinate coord_ship_rel = CoordinateFactory.createCoordinate(new int[]{i%BOUNDING_SQUARE_SIZE, i/BOUNDING_SQUARE_SIZE});
-				Coordinate coord_ship_abs = coord_ship_rel.add(position);
+				Coordinate coord_ship_rel = CoordinateFactory.createCoordinate(new int[]{i%BOUNDING_SQUARE_SIZE, i/BOUNDING_SQUARE_SIZE, 0});
+				Coordinate coord_ship_abs = position.add(coord_ship_rel);
 				coords_ship.add(coord_ship_abs);
 			}
 			i++;

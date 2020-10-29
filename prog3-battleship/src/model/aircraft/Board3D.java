@@ -29,8 +29,8 @@ public class Board3D extends Board{
 
 		int size_board = getSize();
 		if (unveil) {
-			for(int k=0; k<size_board; k++) {
-				for (int i=0; i<size_board; i++) {
+			for(int i=0; i<size_board; i++) {
+				for (int k=0; k<size_board; k++) {
 					for (int j=0; j<size_board; j++) {
 						Coordinate cell = CoordinateFactory.createCoordinate(new int[] {j,i,k});
 						
@@ -40,14 +40,15 @@ public class Board3D extends Board{
 						}
 						else { sketch.append(WATER_SYMBOL);}
 					}
-					if (i != size_board-1) { sketch.append("\n");}
+					if (k != size_board-1) { sketch.append("|");}
+					else { sketch.append("\n");}
 				}
 			}
 		}
 		
 		else {
-			for(int k=0; k<size_board; k++) {
-				for (int i=0; i<size_board; i++) {
+			for(int i=0; i<size_board; i++) {
+				for (int k=0; k<size_board; k++) {
 					for (int j=0; j<size_board; j++) {
 						Coordinate cell = CoordinateFactory.createCoordinate(new int[] {j,i,k});
 						
@@ -58,7 +59,8 @@ public class Board3D extends Board{
 						}
 						else { sketch.append(NOTSEEN_SYMBOL);}
 					}
-					if (i != size_board-1) { sketch.append("\n");}
+					if (k != size_board-1) { sketch.append("|");}
+					else { sketch.append("\n");}
 				}
 			}
 		}

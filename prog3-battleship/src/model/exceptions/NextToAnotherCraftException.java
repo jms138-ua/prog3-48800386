@@ -13,6 +13,6 @@ public class NextToAnotherCraftException extends BattleshipException {
 	
 	@Override
 	public String getMessage() {
-		return super.getMessage();
+		return super.getMessage() + "; it is next to another craft";
 	}
 }

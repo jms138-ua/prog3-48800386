@@ -13,7 +13,7 @@ public class CoordinateAlreadyHitException extends BattleshipException {
 	
 	@Override
 	public String getMessage() {
-		return super.getMessage();
+		return super.getMessage() + "; it was already hit";
 	}
 }
 
