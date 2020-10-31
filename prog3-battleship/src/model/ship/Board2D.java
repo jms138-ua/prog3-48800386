@@ -4,14 +4,28 @@ import model.Board;
 import model.Coordinate;
 import model.CoordinateFactory;
 
+/**
+ * @author Javier Mellado Sanchez 48800386K
+ * Clase que representa el tablero del juego en 2d
+ * Presenta los metodos no heredados
+ */
+
 public class Board2D extends Board{
 	
+	/** Constructor
+	* @param size -> size del avion
+	*/
 	public Board2D(int size) {
 		super(size);
 	}
 	
 	//_____________________________________________________________________________________________________________
 	
+	/** Check si la coordenada se encuentra entre los limites del tablero
+	* @param coord -> coordenada a chekear
+	* @return -> true si esta en los limites, false en caso contrario
+	* @throws -> invalid
+	*/
 	@Override
 	public boolean checkCoordinate(Coordinate coord) {
 		if (!(coord instanceof Coordinate2D)) {
@@ -23,6 +37,12 @@ public class Board2D extends Board{
 	
 	//_____________________________________________________________________________________________________________
 	
+	/** Representar el objeto Board como un string en forma de matriz del tablero
+	 * con sus naves con simbolos correspondientes.
+	 * Existen dos maneras de representarlo segun si ei es el propietario u oponente
+	 * @param unveil -> si es el propietario u oponente
+	 * @return -> string en forma de matriz de tablero
+	 * */
 	@Override
 	public String show(boolean unveil) {
 		StringBuilder sketch = new StringBuilder();

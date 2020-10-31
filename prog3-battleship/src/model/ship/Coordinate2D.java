@@ -5,20 +5,35 @@ import java.util.Set;
 
 import model.Coordinate;
 
+/**
+ * @author Javier Mellado Sanchez 48800386K
+ * Clase que representa las coordenadas del juego en 2d.
+ * Presenta los metodos no heredados
+ */
+
 public class Coordinate2D extends Coordinate {
 
+	/** Constructor a partir de las componentes (x,y)
+	 * @param x -> posicion x
+	 * @param y -> posicion y
+	 */
 	public Coordinate2D(int x, int y) {
 		super(2);
 		set(0,x); set(1,y);
 	}
 	
-	
+	/** Constructor a partir de otro objeto Coordinate, copia sus componentes
+	 * @param coord -> objeto Coordinate
+	 */
 	public Coordinate2D(Coordinate2D coord) {
 		super(coord);
 	}
 	
 	//______________________________________________________________________
 	
+	/** Nuevo objeto Coordinate a partir de la copia de este
+	 * @return -> nuevo objeto Coordinate
+	 */
 	@Override
 	public Coordinate2D copy() {
 		return new Coordinate2D(this);
@@ -26,6 +41,8 @@ public class Coordinate2D extends Coordinate {
 	
 	//______________________________________________________________________
 	
+	/** Representar el objeto Coordinate como un string de la forma "(x,y)" */
+	@Override
 	public String toString() {
 		StringBuilder sketch = new StringBuilder();
 		
@@ -33,7 +50,9 @@ public class Coordinate2D extends Coordinate {
 		return sketch.toString();
 	}
 	
-	
+	/** Set de coordenadas adyacentes a la actual
+	 * @return -> set de coordenadas adyacentes
+	 */
 	@Override
 	public Set<Coordinate> adjacentCoordinates() {
 		Set<Coordinate> coords_adj = new HashSet<Coordinate>();
