@@ -61,7 +61,7 @@ public class Board3D extends Board{
 						else { sketch.append(WATER_SYMBOL);}
 					}
 					if (k != size_board-1) { sketch.append("|");}
-					else { sketch.append("\n");}
+					else if (i != size_board-1) { sketch.append("\n");}
 				}
 			}
 		}
@@ -80,7 +80,7 @@ public class Board3D extends Board{
 						else { sketch.append(NOTSEEN_SYMBOL);}
 					}
 					if (k != size_board-1) { sketch.append("|");}
-					else { sketch.append("\n");}
+					else if (i != size_board-1) { sketch.append("\n");}
 				}
 			}
 		}

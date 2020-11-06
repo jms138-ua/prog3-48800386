@@ -105,7 +105,8 @@ public abstract class Craft {
 	 * @return -> true si fue impactada, false en caso contrario
 	 */
 	public boolean isHit(Coordinate coord) {
-		return (position == null)? false : shape[orientation.ordinal()][getShapeIndex(coord.subtract(position))] == HIT_VALUE;
+		if (position == null) { throw new NullPointerException();}
+		return shape[orientation.ordinal()][getShapeIndex(coord.subtract(position))] == HIT_VALUE;
 	}
 
 	/** Check si la nave esta destruido completamente
