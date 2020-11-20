@@ -21,7 +21,7 @@ import model.ship.Coordinate2D;
 
 public class MainP4 {
 
-	private static void mainBoard3DPlayerFile() throws Exception{
+	private static void mainBoard3DPlayerFile() {
 		IPlayer player1 = null;
 		IPlayer player2 = null;
 		Board b1 = new Board3D(6);
@@ -84,7 +84,7 @@ public class MainP4 {
 	}
 	
 	
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		mainBoard3DPlayerFile();
 		
 		try {

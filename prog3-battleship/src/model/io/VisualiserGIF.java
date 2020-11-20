@@ -62,7 +62,7 @@ public class VisualiserGIF implements IVisualiser{
 			
 			agif.addFrame(frame);
 		}
-		catch (BattleshipIOException e) { System.out.println(e.getMessage());}
+		catch (BattleshipIOException e) { throw new RuntimeException();}
 	}
 	
 	

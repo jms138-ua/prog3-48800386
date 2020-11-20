@@ -90,7 +90,7 @@ public class Game {
 	}
 	
 
-	public boolean playNext() throws Exception{
+	public boolean playNext(){
 		try {
 			if (nextToShoot == 1) 	{ if(player1.nextShoot(board2) == null) {return false;};}
 			else					{ if(player2.nextShoot(board1) == null) {return false;};}
@@ -103,7 +103,7 @@ public class Game {
 	}
 	
 	
-	public void playGame(IVisualiser visualiser) throws Exception {
+	public void playGame(IVisualiser visualiser) {
 		visualiser.show(); start(); visualiser.show();
 		while (playNext() && !gameEnded()) { visualiser.show();}
 		visualiser.close();
