@@ -8,7 +8,7 @@ import model.Coordinate;
  */
 
 @SuppressWarnings("serial")
-public class InvalidCoordinateException extends BattleshipException {
+public class InvalidCoordinateException extends CoordinateException {
 
 	/** Constructor
 	 * @param coord -> coordenada del error

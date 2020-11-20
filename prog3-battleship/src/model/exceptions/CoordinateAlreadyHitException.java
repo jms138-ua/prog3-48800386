@@ -8,7 +8,7 @@ import model.Coordinate;
  */
 
 @SuppressWarnings("serial")
-public class CoordinateAlreadyHitException extends BattleshipException {
+public class CoordinateAlreadyHitException extends CoordinateException {
 
 	/** Constructor
 	 * @param coord -> coordenada del error

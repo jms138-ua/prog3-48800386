@@ -16,7 +16,7 @@ import model.exceptions.CoordinateAlreadyHitException;
 public abstract class Craft {
 	
 	/** Constante que indica el size de la nave */
-	private static final int BOUNDING_SQUARE_SIZE = 5;
+	public static final int BOUNDING_SQUARE_SIZE = 5;
 	/** Constante que representa las coordenadas no impactadas */
 	private static final int CRAFT_VALUE = 1;
 	/** Constante que representa las coordenadas impactadas */
@@ -40,7 +40,7 @@ public abstract class Craft {
 	* @param symbol -> simbolo de la nave
 	* @param name -> nombre de la nave
 	*/
-	public Craft (Orientation orientation, char symbol, String name) {
+	public Craft(Orientation orientation, char symbol, String name) {
 		this.orientation = orientation;
 		this.symbol = symbol;
 		this.name = name;
@@ -105,7 +105,7 @@ public abstract class Craft {
 	 * @return -> true si fue impactada, false en caso contrario
 	 */
 	public boolean isHit(Coordinate coord) {
-		if (position == null) { throw new NullPointerException();}
+		Objects.requireNonNull(coord);
 		return shape[orientation.ordinal()][getShapeIndex(coord.subtract(position))] == HIT_VALUE;
 	}
 

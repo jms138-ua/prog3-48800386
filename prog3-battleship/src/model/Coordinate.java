@@ -20,14 +20,14 @@ public abstract class Coordinate {
 	/** Constructor
 	 * @param dim -> dimension de la coordenada
 	 */
-	protected Coordinate (int dim) {
+	protected Coordinate(int dim) {
 		components = new int[dim];
 	}
 	
 	/** Constructor a partir de otro objeto Coordinate, copia sus componentes
 	 * @param coord -> objeto Coordinate
 	 */
-	protected Coordinate (Coordinate coord) {
+	protected Coordinate(Coordinate coord) {
 		components = new int[coord.components.length];
 		for (int i=0; i<coord.components.length; i++) {
 			components[i] = coord.components[i];
@@ -41,7 +41,7 @@ public abstract class Coordinate {
 	 * @return -> componente
 	 * @throws -> si no se encuentra componente
 	 */
-	public int get(int component) {
+	public int get(int component){
 		if (component>=0 && component<components.length) {
 			return components[component];
 		}
@@ -84,11 +84,10 @@ public abstract class Coordinate {
 	 * */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) { return true;}
-		if (obj == null) { return false;}
-		if (getClass() != obj.getClass()) { return false;}
-		Coordinate other = (Coordinate) obj;
-		if (!Arrays.equals(components, other.components)) { return false;}
+		if (this == obj) { 													return true;}
+		if (obj == null) { 													return false;}
+		if (getClass() != obj.getClass()) {								 	return false;}
+		if (!Arrays.equals(components, ((Coordinate) obj).components)) { 	return false;}
 		return true;
 	}
 	

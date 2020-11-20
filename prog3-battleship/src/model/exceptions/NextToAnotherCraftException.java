@@ -8,7 +8,7 @@ import model.Coordinate;
  */
 
 @SuppressWarnings("serial")
-public class NextToAnotherCraftException extends BattleshipException {
+public class NextToAnotherCraftException extends CoordinateException {
 
 	/** Constructor
 	 * @param coord -> coordenada del error

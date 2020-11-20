@@ -130,7 +130,7 @@ public abstract class Board {
 	 * @return -> set de coordenadas vecinas a la nave
 	 */
 	public Set<Coordinate> getNeighborhood(Craft craft) {
-		if (!board.containsValue(craft)) { throw new NullPointerException();}
+		Objects.requireNonNull(craft);
 		return (craft.getPosition() == null)? Collections.emptySet() : getNeighborhood(craft, craft.getPosition());
 	}
 	

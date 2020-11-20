@@ -15,7 +15,7 @@ public abstract class Ship extends Craft {
 	* @param symbol -> simbolo del barco
 	* @param name -> nombre del barco
 	*/
-	public Ship (Orientation orientation, char symbol, String name) {
+	public Ship(Orientation orientation, char symbol, String name) {
 		super(orientation, symbol, name);
 	}
 }
