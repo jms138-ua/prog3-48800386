@@ -30,7 +30,7 @@ public class Game {
 	/** Numero de impactos */
 	private int shootCounter;
 	/** Siguente jugador a impactar */
-	private int nextToShoot;
+	public int nextToShoot;
 	
 	
 	/** Constructor
@@ -109,11 +109,11 @@ public class Game {
 		sketch.append(player2.getName() + "\n==================================\n" + board2.show(false) + "\n==================================\n");
 		
 		sketch.append("Number of shots: " + shootCounter);
-		
-		if (gameEnded()) {
-			if (nextToShoot == 1) 	{ sketch.append("\n" + player1.getName() + " wins");}
-			else					{ sketch.append("\n" + player2.getName() + " wins");}
+		if (gameEnded()) { 
+			if (board2.areAllCraftsDestroyed()) {  sketch.append("\n" + player1.getName() + " wins");}
+			else 				  				{  sketch.append("\n" + player2.getName() + " wins");}
 		}
+		
 		return sketch.toString();
 	}
 	
@@ -135,13 +135,16 @@ public class Game {
 	 */
 	public boolean playNext(){
 		try {
-			if (nextToShoot == 1) 	{ if(player1.nextShoot(board2) == null) {return false;};}
-			else					{ if(player2.nextShoot(board1) == null) {return false;};}
-			shootCounter++;
-			nextToShoot = 3-nextToShoot;
+			if (nextToShoot == 1) { if(player1.nextShoot(board2) == null) {return false;};}
+			else				  { if(player2.nextShoot(board1) == null) {return false;};}
 		}
 		catch (BattleshipIOException | InvalidCoordinateException e) { throw new RuntimeException();}
-		catch (CoordinateAlreadyHitException e) { System.out.println("Action by " + player1.getName() + e.getMessage());}
+		catch (CoordinateAlreadyHitException e) {
+			if (nextToShoot == 1) { System.out.println("Action by " + player1.getName() + ":" + e.getMessage());}
+			else 				  { System.out.println("Action by " + player2.getName() + ":" + e.getMessage());}
+		}
+		shootCounter++;
+		nextToShoot = 3-nextToShoot;
 		return true;
 	}
 	
@@ -150,7 +153,7 @@ public class Game {
 	 */
 	public void playGame(IVisualiser visualiser) {
 		start(); visualiser.show();
-		while (playNext() && !gameEnded()) { visualiser.show();}
+		while (!gameEnded() && playNext()) { visualiser.show();}
 		visualiser.close();
 	}
 }

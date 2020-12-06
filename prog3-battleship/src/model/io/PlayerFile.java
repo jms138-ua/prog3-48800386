@@ -55,7 +55,7 @@ public class PlayerFile implements IPlayer {
 			while (!((line = br.readLine())==null || line.matches("endput|exit"))) {
 				String[] arg_put = line.split("\\s+");
 				
-				if (!arg_put[0].matches("put|endput|exit")) { throw new BattleshipIOException("command syntax error");}
+				if (!arg_put[0].equals("put")) { throw new BattleshipIOException("command syntax error");}
 				
 				Coordinate coord;
 				if (arg_put.length == 5) {
@@ -64,13 +64,16 @@ public class PlayerFile implements IPlayer {
 				else if (arg_put.length == 6) {
 					coord = CoordinateFactory.createCoordinate(Integer.parseInt(arg_put[3]), Integer.parseInt(arg_put[4]),Integer.parseInt(arg_put[5]));
 				}
-				else { throw new BattleshipIOException(null);}
-				Craft craft = CraftFactory.createCraft(arg_put[1], Orientation.valueOf(arg_put[2]));
+				else { throw new IOException();}
+				
+				Craft craft;
+				try { 					craft = CraftFactory.createCraft(arg_put[1], Orientation.valueOf(arg_put[2]));}
+				catch (Exception e) {	throw new NumberFormatException();}
 				
 				board.addCraft(craft, coord);
 			}
 		}
-		catch (IOException | IllegalArgumentException e){ throw new BattleshipIOException("put command syntax error");}
+		catch (IOException | NumberFormatException e){ throw new BattleshipIOException("put command syntax error");}
 	}
 	
 	@Override
@@ -80,7 +83,7 @@ public class PlayerFile implements IPlayer {
 			if (line == null) { return null;}
 			String[] arg_shoot = line.split("\\s+");
 			if (arg_shoot[0].equals("exit")) { 	return null;}
-			if (!arg_shoot[0].matches("shoot|exit")) { 			throw new BattleshipIOException(null);}
+			if (!arg_shoot[0].matches("shoot|exit")) { 			throw new BattleshipIOException("command syntax error");}
 			
 			Coordinate coord;
 			if (arg_shoot.length == 3) {
@@ -89,7 +92,7 @@ public class PlayerFile implements IPlayer {
 			else if (arg_shoot.length == 4) {
 				coord = CoordinateFactory.createCoordinate(Integer.parseInt(arg_shoot[1]), Integer.parseInt(arg_shoot[2]),Integer.parseInt(arg_shoot[3]));
 			}
-			else { throw new BattleshipIOException(null);}
+			else { throw new IOException();}
 			
 			board.hit(coord);
 			return coord;
