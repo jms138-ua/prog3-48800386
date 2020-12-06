@@ -23,6 +23,9 @@ public abstract class CoordinateException extends BattleshipException{
 	
 	//_______________________________________________
 	
+	/** Muestra el error
+	 * return -> mensaje
+	 */
 	@Override
 	public String getMessage() {
 		return "Problem with coordinate " + coord;

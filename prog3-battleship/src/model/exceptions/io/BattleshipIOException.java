@@ -10,9 +10,13 @@ import model.exceptions.BattleshipException;
 @SuppressWarnings("serial")
 public class BattleshipIOException extends BattleshipException{
 	
+	/** Mensaje del error */
 	private String message;
 	
 	
+	/** Constructor
+	 * @param msg -> mensaje del error
+	 */
 	public BattleshipIOException(String msg) {
 		message = msg;
 	}

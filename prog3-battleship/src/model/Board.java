@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Collections;
 import java.util.Objects;
 
 import model.exceptions.CoordinateAlreadyHitException;
@@ -70,6 +69,7 @@ public abstract class Board {
 	/** Check si la coordenada se encuentra entre los limites del tablero
 	* @param coord -> coordenada a chekear
 	* @return -> true si esta en los limites, false en caso contrario
+	* @throws -> invalid
 	*/
 	public abstract boolean checkCoordinate(Coordinate coord);
 	
@@ -131,7 +131,7 @@ public abstract class Board {
 	 */
 	public Set<Coordinate> getNeighborhood(Craft craft) {
 		Objects.requireNonNull(craft);
-		return (craft.getPosition() == null)? Collections.emptySet() : getNeighborhood(craft, craft.getPosition());
+		return getNeighborhood(craft, craft.getPosition());
 	}
 	
 	//______________________________________________________________________________________________________________________________________________________

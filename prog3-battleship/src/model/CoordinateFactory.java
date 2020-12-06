@@ -13,7 +13,7 @@ public class CoordinateFactory {
 	
 	/** Constructor a partir de un array de componentes
 	 * @param coord -> array de componentes
-	 * @return -> Clase Coordinate de su dimension
+	 * @return -> objeto Coordinate de su dimension
 	 */
 	public static Coordinate createCoordinate(int ... coord) {
 		if (coord.length == 2) { 		return new Coordinate2D(coord[0], coord[1]);}

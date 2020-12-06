@@ -10,13 +10,23 @@ import model.exceptions.io.BattleshipIOException;
 import model.io.gif.AnimatedGIF;
 import model.io.gif.FrameGIF;
 
+/**
+ * @author Javier Mellado Sanchez 48800386K
+ * Clase que representa a un visualizador por GIF
+ */
+
 public class VisualiserGIF implements IVisualiser{
 	
+	/** Juego */
 	private Game game;
 	
+	/** Controlador GIF*/
 	private AnimatedGIF agif;
 	
 	
+	/** Constructor
+	* @param game -> juego
+	*/
 	public VisualiserGIF (Game game) {
 		this.game = Objects.requireNonNull(game);
 		agif = new AnimatedGIF();
@@ -64,7 +74,6 @@ public class VisualiserGIF implements IVisualiser{
 		}
 		catch (BattleshipIOException e) { throw new RuntimeException();}
 	}
-	
 	
 	@Override
 	public void close() {

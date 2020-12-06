@@ -16,6 +16,11 @@ import model.aircraft.Transport;
 
 public class CraftFactory {
 	
+	/** Constructor a partir del tipo y orientacion
+	 * @param type -> tipo de nave
+	 * @param orientation -> orientacion de la nave
+	 * @return -> objeto Craft de su tipo
+	 */
 	public static Craft createCraft(String type, Orientation orientation) {
 		switch (type) {
 			case "Battleship": 	return new Battleship(orientation);

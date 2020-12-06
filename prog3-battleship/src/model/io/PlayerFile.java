@@ -16,13 +16,24 @@ import model.exceptions.NextToAnotherCraftException;
 import model.exceptions.OccupiedCoordinateException;
 import model.exceptions.io.BattleshipIOException;
 
+/**
+ * @author Javier Mellado Sanchez 48800386K
+ * Clase que representa a un jugador a traves un archivo
+ */
+
 public class PlayerFile implements IPlayer {
 	
+	/** Nombre del jugador */
 	private String name;
 	
+	/** Buffer del archivo de lectura*/
 	private BufferedReader br;
 	
 	
+	/** Constructor
+	* @param name -> nombre del jugador
+	* @param br -> buffer del archivo de lectura
+	*/
 	public PlayerFile(String name, BufferedReader br) {
 		this.name = name;
 		this.br = Objects.requireNonNull(br);
@@ -35,7 +46,6 @@ public class PlayerFile implements IPlayer {
 		return name + " (PlayerFile)";
 	}
 	
-	
 	@Override
 	public void putCrafts(Board board) throws BattleshipIOException, InvalidCoordinateException, OccupiedCoordinateException, NextToAnotherCraftException{
 		Objects.requireNonNull(board);
@@ -45,7 +55,7 @@ public class PlayerFile implements IPlayer {
 			while (!((line = br.readLine())==null || line.matches("endput|exit"))) {
 				String[] arg_put = line.split("\\s+");
 				
-				if (!arg_put[0].matches("put|endput|exit")) { throw new BattleshipIOException(null);}
+				if (!arg_put[0].matches("put|endput|exit")) { throw new BattleshipIOException("command syntax error");}
 				
 				Coordinate coord;
 				if (arg_put.length == 5) {
@@ -63,12 +73,13 @@ public class PlayerFile implements IPlayer {
 		catch (IOException | IllegalArgumentException e){ throw new BattleshipIOException("put command syntax error");}
 	}
 	
-	
 	@Override
 	public Coordinate nextShoot(Board board) throws BattleshipIOException, InvalidCoordinateException, CoordinateAlreadyHitException{
 		try {
-			String[] arg_shoot = br.readLine().split("\\s+");
-			if (arg_shoot[0].equals("exit") || arg_shoot[0]==null) { 	return null;}
+			String line = br.readLine();
+			if (line == null) { return null;}
+			String[] arg_shoot = line.split("\\s+");
+			if (arg_shoot[0].equals("exit")) { 	return null;}
 			if (!arg_shoot[0].matches("shoot|exit")) { 			throw new BattleshipIOException(null);}
 			
 			Coordinate coord;
