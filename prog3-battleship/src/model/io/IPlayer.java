@@ -1,12 +1,14 @@
 package model.io;
 
+import model.Board;
 import model.Coordinate;
+import model.CellStatus;
+
 import model.exceptions.CoordinateAlreadyHitException;
 import model.exceptions.InvalidCoordinateException;
 import model.exceptions.NextToAnotherCraftException;
 import model.exceptions.OccupiedCoordinateException;
 import model.exceptions.io.BattleshipIOException;
-import model.Board;
 
 /**
  * @author Javier Mellado Sanchez 48800386K
@@ -15,6 +17,11 @@ import model.Board;
  */
 
 public interface IPlayer {
+	
+	/** Getter de la situacion del ultimo disparo
+	 * @return -> situacion
+	 */
+	public CellStatus getLastShotStatus();
 	
 	/** Getter de nombre del jugador
 	 * @return -> nombre

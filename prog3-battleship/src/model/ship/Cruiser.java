@@ -36,4 +36,10 @@ public class Cruiser extends Ship{
 				0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0}}; 
 	}
+	
+	
+	@Override
+	public int getValue() {
+		return 5;
+	}
 }

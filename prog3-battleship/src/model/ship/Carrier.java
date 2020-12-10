@@ -36,4 +36,9 @@ public class Carrier extends Ship{
 				0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0}}; 
 	}
+	
+	@Override
+	public int getValue() {
+		return 8;
+	}
 }

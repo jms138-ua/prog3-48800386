@@ -4,6 +4,9 @@ import java.util.Objects;
 
 import model.io.IPlayer;
 import model.io.IVisualiser;
+import model.score.HitScore;
+import model.score.CraftScore;
+
 import model.exceptions.CoordinateAlreadyHitException;
 import model.exceptions.InvalidCoordinateException;
 import model.exceptions.io.BattleshipIOException;
@@ -32,6 +35,15 @@ public class Game {
 	/** Siguente jugador a impactar */
 	public int nextToShoot;
 	
+	/** Puntuacion del jugador1 por todos los impactos */
+	public HitScore hitScore1;
+	/** Puntuacion del jugador2 por todos los impactos */
+	public HitScore hitScore2;
+	/** Puntuacion del jugador1 por todas las naves destruidas */
+	public CraftScore craftScore1;
+	/** Puntuacion del jugador2 por todas las naves destruidas */
+	public CraftScore craftScore2;
+	
 	
 	/** Constructor
 	* @param board1 -> tablero1
@@ -44,6 +56,10 @@ public class Game {
 		this.board2 = Objects.requireNonNull(board2);
 		this.player1 = Objects.requireNonNull(player1);
 		this.player2 = Objects.requireNonNull(player2);
+		hitScore1 = new HitScore(player1);
+		hitScore2 = new HitScore(player2);
+		craftScore1 = new CraftScore(player1);
+		craftScore2 = new CraftScore(player2);
 	}
 	
 	//__________________________________________________________________________________
@@ -76,13 +92,56 @@ public class Game {
 		return player2;
 	}
 	
+	/** Getter de la puntuacion del jugador1 por todos los impactos
+	 * @return -> puntuacion
+	 */
+	public HitScore getHitScorePlayer1() {
+		return hitScore1;
+	}
+	
+	/** Getter de la puntuacion del jugador2 por todos los impactos
+	 * @return -> puntuacion
+	 */
+	public HitScore getHitScorePlayer2() {
+		return hitScore2;
+	}
+	
+	/** Getter de la puntuacion del jugador1 por todas las naves destruidas
+	 * @return -> puntuacion
+	 */
+	public CraftScore getCraftScorePlayer1() {
+		return craftScore1;
+	}
+	
+	/** Getter de la puntuacion del jugador2 por todos los impactos
+	 * @return -> puntuacion
+	 */
+	public CraftScore getCraftScorePlayer2() {
+		return craftScore2;
+	}
+	
+	/** Representar todas las puntuaciones
+	 * @return -> string con la informacion de las puntuaciones
+	 */
+	public String getScoreInfo() {
+		StringBuilder sketch = new StringBuilder();
+		sketch.append("Player 1\n");
+		sketch.append("HitScore: " + hitScore1 + "\n");
+		sketch.append("CraftScore: " + craftScore1);
+		sketch.append("\n--------------\n");
+		sketch.append("Player 2\n");
+		sketch.append("HitScore: " + hitScore2 + "\n");
+		sketch.append("CraftScore: " + craftScore2);
+		
+		return sketch.toString();
+	}
+	
 	/** Getter del ultimo jugador que ha impactado
 	 * @return -> jugador
 	 */
 	public IPlayer getPlayerLastShoot() {
-		if (!gameStarted) { return null;}
+		if (!gameStarted || shootCounter==0) { return null;}
 		return (nextToShoot == 1) ? player2 : player1;
-		
 	}
 	
 	/** Check si el juego ha terminado
@@ -134,15 +193,25 @@ public class Game {
 	 * @return -> true si se ha podido impactar, false en caso contrario
 	 */
 	public boolean playNext(){
+		IPlayer player_shoot = nextToShoot == 1? player1 : player2;
+		Board board_to_shoot = nextToShoot == 1? board2 : board1;
+		HitScore score_hit_player_shot = nextToShoot == 1? hitScore1 : hitScore2;
+		CraftScore score_craft_player_shot = nextToShoot == 1? craftScore1 : craftScore2;
+		
 		try {
-			if (nextToShoot == 1) { if(player1.nextShoot(board2) == null) {return false;};}
-			else				  { if(player2.nextShoot(board1) == null) {return false;};}
+			Coordinate coord_hit = player_shoot.nextShoot(board_to_shoot);
+			if (coord_hit == null) { 	return false;}
+			else {
+				score_hit_player_shot.score(player_shoot.getLastShotStatus());
+				if (player_shoot.getLastShotStatus() == CellStatus.DESTROYED) {
+					score_craft_player_shot.score(board_to_shoot.getCraft(coord_hit));
+				}
+			}
+
 		}
-		catch (BattleshipIOException | InvalidCoordinateException e) { throw new RuntimeException();}
-		catch (CoordinateAlreadyHitException e) {
-			if (nextToShoot == 1) { System.out.println("Action by " + player1.getName() + ":" + e.getMessage());}
-			else 				  { System.out.println("Action by " + player2.getName() + ":" + e.getMessage());}
-		}
+		catch (BattleshipIOException | InvalidCoordinateException e) { 	throw new RuntimeException();}
+		catch (CoordinateAlreadyHitException e) { 						System.out.println("Action by " + player_shoot.getName() + ":" + e.getMessage());}
+		
 		shootCounter++;
 		nextToShoot = 3-nextToShoot;
 		return true;

@@ -188,7 +188,7 @@ public abstract class Board {
 	
 	/** Impactar contra una coordenada de la matriz del tablero
 	 * @param coord -> coordenada a impactar
-	 * @return -> situacion que pueden suceder cuando se hace un disparo
+	 * @return -> situacion que puede suceder cuando se hace un disparo
 	 * @throws InvalidCoordinateException -> invalid
 	 * @throws CoordinateAlreadyHitException -> ya impactada
 	 * */

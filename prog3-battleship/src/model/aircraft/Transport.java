@@ -36,4 +36,10 @@ public class Transport extends Aircraft{
 				0, 0, 1, 0, 0,
 				0, 0, 0, 1, 0}}; 
 	}
+	
+	
+	@Override
+	public int getValue() {
+		return 18;
+	}
 }

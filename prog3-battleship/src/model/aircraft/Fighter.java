@@ -36,4 +36,10 @@ public class Fighter extends Aircraft{
 				0, 0, 1, 0, 0,
 				0, 0, 0, 0, 0}}; 
 	}
+	
+	
+	@Override
+	public int getValue() {
+		return 10;
+	}
 }

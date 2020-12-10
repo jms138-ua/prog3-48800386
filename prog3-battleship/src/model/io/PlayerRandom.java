@@ -4,14 +4,16 @@ import java.util.Objects;
 import java.util.Random;
 
 import model.Board;
-import model.aircraft.Board3D;
-import model.exceptions.CoordinateAlreadyHitException;
-import model.exceptions.InvalidCoordinateException;
 import model.Craft;
 import model.CraftFactory;
+import model.aircraft.Board3D;
 import model.Coordinate;
 import model.CoordinateFactory;
 import model.Orientation;
+import model.CellStatus;
+
+import model.exceptions.CoordinateAlreadyHitException;
+import model.exceptions.InvalidCoordinateException;
 
 /**
  * @author Javier Mellado Sanchez 48800386K
@@ -26,6 +28,9 @@ public class PlayerRandom implements IPlayer{
 	/** Generador de numeros random */
 	private Random random;
 	
+	/** Situacion del ultimo disparo */
+	public CellStatus lastShotStatus;
+	
 	
 	/** Constructor
 	* @param name -> nombre del jugador
@@ -37,6 +42,11 @@ public class PlayerRandom implements IPlayer{
 	}
 	
 	//__________________________________________________________________________________________________________________________________________________________
+	
+	@Override
+	public CellStatus getLastShotStatus() {
+		return lastShotStatus;
+	}
 	
 	/** Generar de numero random
 	 * @param min -> numero minimo
@@ -73,9 +83,9 @@ public class PlayerRandom implements IPlayer{
 	public void putCrafts(Board board){
 		Objects.requireNonNull(board);
 		
-		String[] crafts_type = {"Battleship","Carrier","Cruiser","Destroyer","Bomber","Fighter","Transport"};
+		String[] crafts_type = {"ship.Battleship","ship.Carrier","ship.Cruiser","ship.Destroyer","aircraft.Bomber","aircraft.Fighter","aircraft.Transport"};
 		for (String craft_type : crafts_type) {
-			if (board instanceof Board3D || !craft_type.matches("Bomber|Fighter|Transport")) {
+			if (board instanceof Board3D || !craft_type.matches("aircraft.Bomber|aircraft.Fighter|aircraft.Transport")) {
 				Orientation orientation_random = Orientation.values()[random.nextInt(Orientation.values().length)];
 				
 				boolean add_check = false;
@@ -98,7 +108,7 @@ public class PlayerRandom implements IPlayer{
 	public Coordinate nextShoot(Board board) throws InvalidCoordinateException, CoordinateAlreadyHitException {
 		Coordinate coord = getRamdomCoordinate(board, 0);
 		
-		board.hit(coord);
+		lastShotStatus = board.hit(coord);
 		return coord;
 	}
 }

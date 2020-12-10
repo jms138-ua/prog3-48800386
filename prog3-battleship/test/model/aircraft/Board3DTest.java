@@ -224,6 +224,12 @@ public class Board3DTest {
 	 */
 	@Test
 	public void testAddCraftOk()  {
+		f2 = new Coordinate3D(3,0,0);
+		b1 = new Coordinate3D(0,2,1);
+		b2 = new Coordinate3D(1,3,3);
+		f1 = new Coordinate3D(-1,-1,4);
+		t1 = new Coordinate3D(2,2,6);
+		f3 = new Coordinate3D(-1,0,6);
 		
 		try {
 			board.addCraft(bomberE,b1);
@@ -385,11 +391,11 @@ public class Board3DTest {
 	 *     ⇄ |       |       |       | ⇄     |       | ⇄     
      *     ⇄ |       |       |       |⇄⇄⇄⇄   |       | ⇄     
      *    ⇄⇄⇄| ⇶⇶    |       |       | ⇄     |       |⇄⇄⇄ ⇋  
-     *     ⇄ |  ⇶    |       |   ⇶   |       | ⇶⇶    | ⇄  ⇋  
-     *       |⇶⇶⇶⇶   |       | ⇶ ⇶ ⇶ |       |  ⇶    |   ⇋⇋⇋ 
-     *       |  ⇶    |       | ⇶⇶⇶⇶⇶ |       |⇶⇶⇶⇶   |  ⇋ ⇋ ⇋
-     *       | ⇶⇶    |       |   ⇶   |       |  ⇶    |    ⇋  
-     *       								   ⇶⇶
+     *     ⇄ |  ⇶    |       |   ⇶   |       | BB    | ⇄  ⇋  
+     *       |⇶⇶⇶⇶   |       | ⇶ ⇶ ⇶ |       |  B    |   ⇋⇋⇋ 
+     *       |  ⇶    |       | ⇶⇶⇶⇶⇶ |       |BBBB   |  ⇋ ⇋ ⇋
+     *       | ⇶⇶    |       |   ⇶   |       |  B    |    ⇋  
+     *       								   BB
 	 */
 	@Test
 	public void testAddCraftNextToOut() {

@@ -89,7 +89,12 @@ public abstract class Craft {
 	public int[][] getShape() {
 		return shape;
 	}
-
+	
+	/** Puntuacion por destruir la nave
+	 * @return -> score
+	 */
+	public abstract int getValue();
+	
 	/** Como realmente la matriz es un array, esta funcion
 	 * convierte una coordenada relativa en el indice para el array
 	 * @param coord -> coordenada a convertir

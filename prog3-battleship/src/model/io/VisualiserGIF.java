@@ -6,9 +6,10 @@ import java.awt.Color;
 
 import model.Game;
 import model.Board;
-import model.exceptions.io.BattleshipIOException;
 import model.io.gif.AnimatedGIF;
 import model.io.gif.FrameGIF;
+
+import model.exceptions.io.BattleshipIOException;
 
 /**
  * @author Javier Mellado Sanchez 48800386K

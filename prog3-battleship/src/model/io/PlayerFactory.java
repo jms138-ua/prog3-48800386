@@ -2,8 +2,8 @@ package model.io;
 
 import java.io.FileReader;
 import java.io.BufferedReader;
-import java.io.IOException;
 
+import java.io.IOException;
 import model.exceptions.io.BattleshipIOException;
 
 /**

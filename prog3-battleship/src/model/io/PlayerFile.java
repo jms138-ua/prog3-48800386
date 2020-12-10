@@ -2,7 +2,6 @@ package model.io;
 
 import java.util.Objects;
 import java.io.BufferedReader;
-import java.io.IOException;
 
 import model.Board;
 import model.Craft;
@@ -10,11 +9,14 @@ import model.CraftFactory;
 import model.Coordinate;
 import model.CoordinateFactory;
 import model.Orientation;
+import model.CellStatus;
+
 import model.exceptions.CoordinateAlreadyHitException;
 import model.exceptions.InvalidCoordinateException;
 import model.exceptions.NextToAnotherCraftException;
 import model.exceptions.OccupiedCoordinateException;
 import model.exceptions.io.BattleshipIOException;
+import java.io.IOException;
 
 /**
  * @author Javier Mellado Sanchez 48800386K
@@ -26,8 +28,11 @@ public class PlayerFile implements IPlayer {
 	/** Nombre del jugador */
 	private String name;
 	
-	/** Buffer del archivo de lectura*/
+	/** Buffer del archivo de lectura */
 	private BufferedReader br;
+	
+	/** Situacion del ultimo disparo */
+	public CellStatus lastShotStatus;
 	
 	
 	/** Constructor
@@ -37,6 +42,13 @@ public class PlayerFile implements IPlayer {
 	public PlayerFile(String name, BufferedReader br) {
 		this.name = name;
 		this.br = Objects.requireNonNull(br);
+	}
+	
+	//__________________________________________________________________________________________________________________________________________________________
+	
+	@Override
+	public CellStatus getLastShotStatus() {
+		return lastShotStatus;
 	}
 	
 	//__________________________________________________________________________________________________________________________________________________________
@@ -80,9 +92,10 @@ public class PlayerFile implements IPlayer {
 	public Coordinate nextShoot(Board board) throws BattleshipIOException, InvalidCoordinateException, CoordinateAlreadyHitException{
 		try {
 			String line = br.readLine();
-			if (line == null) { return null;}
+			if (line == null) { lastShotStatus = null; return null;}
+			
 			String[] arg_shoot = line.split("\\s+");
-			if (arg_shoot[0].equals("exit")) { 	return null;}
+			if (arg_shoot[0].equals("exit")) { 	lastShotStatus = null; return null;}
 			if (!arg_shoot[0].matches("shoot|exit")) { 			throw new BattleshipIOException("command syntax error");}
 			
 			Coordinate coord;
@@ -94,7 +107,7 @@ public class PlayerFile implements IPlayer {
 			}
 			else { throw new IOException();}
 			
-			board.hit(coord);
+			lastShotStatus = board.hit(coord);
 			return coord;
 		}
 		catch (IOException | NumberFormatException e){ throw new BattleshipIOException("shoot command syntax error");}

@@ -16,8 +16,9 @@ public class VisualiserFactory {
 	 * @return -> objeto visualizador, null si no se ha podido crear
 	 */
 	public static IVisualiser createVisualiser(String mode, Game game) {
-		if (mode == "Console") { 	return new VisualiserConsole(game);}
-		else if (mode == "GIF") {	return new VisualiserGIF(game);}
-		else {						return null;}
+		try {
+			return (IVisualiser) Class.forName("model.io.Visualiser"+mode).getConstructor(Game.class).newInstance(game);
+		}
+		catch (Exception e) { return null;}
 	}
 }
