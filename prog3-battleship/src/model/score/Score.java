@@ -43,7 +43,7 @@ public abstract class Score<T> implements Comparable<Score<T>> {
 		return player.getName() + ": " + score;
 	}
 	
-	/** Comparar dos resultados, usado en la ordenacion
+	/** Comparar dos resultados en reverse, usado en la ordenacion
 	 * @param score_other -> Objeto Coordinate para comparar
 	 * @return -> resultado
 	 */

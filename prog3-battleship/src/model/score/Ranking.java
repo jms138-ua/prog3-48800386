@@ -35,7 +35,7 @@ public class Ranking<ScoreType extends Score<?>>{
 	
 	//________________________________________________________________________________________________________
 	
-	/** Objeto Score ganador, como es un set ordenador coge el ultimo elemento (el de mayor puntuacion)
+	/** Objeto Score ganador, como es un set ordenador en reverse se coge el primer elemento (el de mayor puntuacion)
 	 * @return -> coordenada impactada
 	 * @throws EmptyRankingException -> empty ranking
 	 */
