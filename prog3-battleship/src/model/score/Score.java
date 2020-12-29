@@ -49,7 +49,7 @@ public abstract class Score<T> implements Comparable<Score<T>> {
 	 */
 	public int compareTo(Score<T> score_other) {
 		int result_cmp = new Integer(score).compareTo(new Integer(score_other.getScore()));
-		if (result_cmp != 0) { 	return result_cmp;}
+		if (result_cmp != 0) { 	return -result_cmp;}
 		else { 					return player.getName().compareTo(score_other.player.getName());}
 	}
 	

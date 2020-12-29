@@ -315,7 +315,6 @@ public class VisualiserGIFTest {
 	}
 	
 	//Obtiene un atributo de una clase
-		@SuppressWarnings("unchecked")
 		Object getClassField(Object obj, String atribute) throws Exception {
 		
 			// Sacamos el atributo privado (seen) de la clase (Board) 

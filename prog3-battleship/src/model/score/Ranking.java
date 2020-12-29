@@ -41,7 +41,7 @@ public class Ranking<ScoreType extends Score<?>>{
 	 */
 	public ScoreType getWinner() throws EmptyRankingException {
 		try {
-			return scoreSet.last();
+			return scoreSet.first();
 		}
 		catch (NoSuchElementException e) { throw new EmptyRankingException("Empty ranking");}
 	}

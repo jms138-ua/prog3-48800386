@@ -7,6 +7,6 @@ shoot 1 4
 shoot 2 3
 shoot 1 1
 shoot 0 3
-shoot 0 4
-shoot 0 5
+shoot 2 5
+shoot 3 5
 exit
